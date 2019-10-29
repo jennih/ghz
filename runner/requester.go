@@ -281,6 +281,10 @@ func (b *Requester) newClientConn(withStatsHandler bool) (*grpc.ClientConn, erro
 		opts = append(opts, grpc.WithStatsHandler(sh))
 	}
 
+	if b.config.maxReceiveSize > 0 {
+		opts = append(opts, grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(b.config.maxReceiveSize)))
+	}
+
 	// create client connection
 	return grpc.DialContext(ctx, b.config.host, opts...)
 }

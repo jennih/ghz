@@ -49,6 +49,9 @@ type RunConfig struct {
 	dialTimeout   time.Duration
 	keepaliveTime time.Duration
 
+	// misc dial/connection options
+	maxReceiveSize int
+
 	zstop string
 
 	streamInterval time.Duration
@@ -157,6 +160,14 @@ func WithConcurrency(c uint) Option {
 func WithQPS(qps uint) Option {
 	return func(o *RunConfig) error {
 		o.qps = int(qps)
+
+		return nil
+	}
+}
+
+func WithMaxReceiveSize(mrs uint) Option {
+	return func(o *RunConfig) error {
+		o.maxReceiveSize = int(mrs)
 
 		return nil
 	}

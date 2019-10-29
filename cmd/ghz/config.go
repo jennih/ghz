@@ -49,6 +49,7 @@ type config struct {
 	Z               Duration           `json:"duration" toml:"duration" yaml:"duration"`
 	ZStop           string             `json:"duration-stop" toml:"duration-stop" yaml:"duration-stop" default:"close"`
 	X               Duration           `json:"max-duration" toml:"max-duration" yaml:"max-duration"`
+	MaxReceiveSize  uint               `json:"max-receive-size" toml:"max-receive-size" yaml:"max-receive-size"`
 	Timeout         Duration           `json:"timeout" toml:"timeout" yaml:"timeout" default:"20s"`
 	Data            interface{}        `json:"data,omitempty" toml:"data,omitempty" yaml:"data,omitempty"`
 	DataPath        string             `json:"data-file" toml:"data-file" yaml:"data-file"`

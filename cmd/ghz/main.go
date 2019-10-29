@@ -64,6 +64,8 @@ var (
 	ct = kingpin.Flag("connect-timeout", "Connection timeout for the initial connection dial. Default is 10s.").Default("10s").Duration()
 	kt = kingpin.Flag("keepalive", "Keepalive time duration. Only used if present and above 0.").Default("0").Duration()
 
+	mrs = kingpin.Flag("max-receive-size", "Max response size. Only used if present and above 0.").Default("0").Uint()
+
 	name = kingpin.Flag("name", "User specified name for the test.").PlaceHolder(" ").String()
 	tags = kingpin.Flag("tags", "JSON representation of user-defined string tags.").PlaceHolder(" ").String()
 
@@ -129,6 +131,7 @@ func main() {
 		runner.WithStreamInterval(time.Duration(cfg.SI)),
 		runner.WithReflectionMetadata(cfg.ReflectMetadata),
 		runner.WithConnections(cfg.Connections),
+		runner.WithMaxReceiveSize(cfg.MaxReceiveSize),
 	)
 
 	if strings.TrimSpace(cfg.MetadataPath) != "" {
@@ -255,6 +258,7 @@ func createConfigFromArgs() (*config, error) {
 		QPS:             *q,
 		Z:               Duration(*z),
 		X:               Duration(*x),
+		MaxReceiveSize:  *mrs,
 		Timeout:         Duration(*t),
 		ZStop:           *zstop,
 		Data:            dataObj,
